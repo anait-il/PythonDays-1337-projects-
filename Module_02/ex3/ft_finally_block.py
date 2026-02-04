@@ -1,50 +1,43 @@
 
 
 def water_plants(plant_list: list) -> None:
+    """Waterig the plants"""
     print("Opening watering system")
-    try:
-        if plant_list is None:
-            raise TypeError("Cannot water None - invalide plant!")
-        for plant in plant_list:
-            if plant is None:
-                raise ValueError("Cannot water None - invalid plant!")
-            print(f"Watering {plant}")
-    except ValueError as e:
-        print(f"Error: {e}")
-        raise ValueError("Error")
-    
-    finally:
-        print("Closing watering system (cleanup)")
+    if not plant_list:
+        raise ValueError("Cannot water None - invalide plant!")
+    for plant in plant_list:
+        if not plant:
+            raise ValueError("Cannot water None - invalid plant!")
+        print(f"Watering {plant}")
 
 
-
-def	test_watering_system() -> None:
-    print("=== Garden Watering System ===")	
+def test_watering_system() -> None:
+    """Test the plant watering"""
+    print("=== Garden Watering System ===")
+    flag: int = 0
     try:
         print("\nTesting normal watering...")
         plant: list = ["tomato", "lettuce", "carrots"]
         water_plants(plant)
-    except:
-        pass
-    else:
-        print("Watering completed successfully")
+    except ValueError as e:
+        flag = 1
+        print(f"Errr: {e}")
+    finally:
+        print("Closing watering system (cleanup)")
+        if flag == 0:
+            print("Watering completed successfully")
 
+    flag == 0
     try:
         print("\nTesting with error...")
         plant2: list = ["tomato", None, "botato"]
         water_plants(plant2)
-    except:
-        pass
-    else:
-        print("Watering completed successfully")
-    
+    except ValueError as e:
+        flag = 1
+        print(f"Error: {e}")
     finally:
-        print("\nCleanup always happens, even with errors!")
+        print("Closing watering system (cleanup)")
+        if flag == 0:
+            print("Watering completed successfully")
 
-
-
-test_watering_system()
-
-		
-
-    
+    print("\nCleanup always happens, even with errors!")
