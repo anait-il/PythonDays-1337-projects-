@@ -15,8 +15,11 @@ class Plant:
 
 
 rose = Plant("Rose", 25, 30)
-plants: list[Plant] = [rose]
-start_height: int = rose.height
+sunflower = Plant("Sunflower", 50, 15)
+plants: list[Plant] = [rose, sunflower]
+start_height: int = 0
+for plant in plants:
+    start_height += plant.height
 
 
 def ft_plant_growth() -> None:
@@ -31,7 +34,10 @@ def ft_plant_growth() -> None:
             print("=== Day 7 ===")
             for plant in plants:
                 plant.get_info()
-    print(f"Growth this week: +{rose.height - start_height}cm")
+    end_height: int = 0
+    for plant in plants:
+        end_height += plant.height
+    print(f"Growth this week: +{end_height - start_height}cm")
 
 
 if __name__ == "__main__":
