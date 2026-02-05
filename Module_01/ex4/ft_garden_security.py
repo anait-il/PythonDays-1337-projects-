@@ -38,11 +38,12 @@ def ft_garden_security() -> None:
     print(f"Plant created: {plant.name}")
     age: int = plant.set_age(2)
     height: int = plant.set_height(100)
-    if age == 1 and height == 1:
+    if age == 1:
         print(f"Age updated: {plant.get_age()} days [OK]")
+    if height == 1:
         print(f"Height updated: {plant.get_height()}cm [OK]")
-        print(f"\nCurrent plant: {plant.name} ", end="")
-        print(f"({plant._height}cm, {plant._age} days)")
+    print(f"\nCurrent plant: {plant.name} ", end="")
+    print(f"({plant._height}cm, {plant._age} days)")
 
 
 if __name__ == "__main__":

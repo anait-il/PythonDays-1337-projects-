@@ -54,17 +54,21 @@ class GardenManager:
 
     gardens: list[Garden] = []
 
-    @staticmethod
     def total_gardens(garden: list[Garden]) -> int:
         total: int = 0
         for i in garden:
             total += 1
         return total
+    total_gardens = staticmethod(total_gardens)
 
-    @classmethod
+    def print_intro() -> None:
+        print("=== Garden Management System Demo ===\n")
+    print_intro = staticmethod(print_intro)
+
     def create_garden_network(cls, garden: list[Garden]) -> None:
         cls.gardens += [garden]
         cls.garden_growth(garden)
+    create_garden_network = classmethod(create_garden_network)
 
     class GardenStats:
         def __init__(self, garden: Garden) -> None:
@@ -83,7 +87,6 @@ class GardenManager:
                 elif plant.type == "prize flowers":
                     self.prize_count += 1
 
-        @staticmethod
         def count_plants(flowering_count: int,
                          prize_count: int,
                          regular_count: int,
@@ -93,8 +96,8 @@ class GardenManager:
             print(f"Plant types: {regular_count} regular, ", end="")
             print(f"{flowering_count} flowering, {prize_count} prize flowers")
             print("")
+        count_plants = staticmethod(count_plants)
 
-    @classmethod
     def height_validation(cls) -> None:
         for garden in cls.gardens:
             for plant in garden.plants:
@@ -102,8 +105,8 @@ class GardenManager:
                     print("Height validation test: False")
                     return
         print("Height validation test: True")
+    height_validation = classmethod(height_validation)
 
-    @classmethod
     def Scores(cls) -> None:
         print("Garden scores - ", end="")
 
@@ -117,8 +120,8 @@ class GardenManager:
             first = False
 
         print("")
+    Scores = classmethod(Scores)
 
-    @classmethod
     def garden_repport(cls) -> None:
         for x in cls.gardens:
             if x.plants == []:
@@ -133,18 +136,19 @@ class GardenManager:
                                stats.regular_count,
                                stats.total,
                                stats.plants_count)
+    garden_repport = classmethod(garden_repport)
 
-    @classmethod
     def garden_growth(cls, garden: list[Garden]) -> None:
         if garden.plants == []:
             return
         print(f"{garden.name} is helping all plants grow...")
         for plant in garden.plants:
             plant.grow()
+    garden_growth = classmethod(garden_growth)
 
 
 if __name__ == "__main__":
-    print("=== Garden Management System Demo ===\n")
+    GardenManager.print_intro()
 
     Alice = Garden("Alice")
     Bob = Garden("Bob")

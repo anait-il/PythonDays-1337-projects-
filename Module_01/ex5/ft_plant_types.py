@@ -5,13 +5,16 @@ class Plant:
         self.height: int = height
         self.age: int = age
 
+    def get_info(self) -> None:
+        pass
+
 
 class Flower(Plant):
     def __init__(self, name: str, height: int, age: int, color: str) -> None:
         super().__init__(name, height, age)
         self.color: str = color
 
-    def bloom(self):
+    def get_info(self) -> None:
         print(f"{self.name} (Flower): {self.height}cm,", end=" ")
         print(f"{self.age} days, {self.color} color")
         print(f"{self.name} is blooming beautifully!")
@@ -24,9 +27,9 @@ class Tree(Plant):
                  age: int,
                  trunk_diameter: int) -> None:
         super().__init__(name, height, age)
-        self.trunk_diameter: str = trunk_diameter
+        self.trunk_diameter: int = trunk_diameter
 
-    def produce_shade(self) -> None:
+    def get_info(self) -> None:
         print(f"{self.name} (Tree): {self.height}cm,", end=" ")
         print(f"{self.age} days, {self.trunk_diameter}cm diameter")
         print(f"{self.name} provides", end=" ")
@@ -44,7 +47,7 @@ class Vegetable(Plant):
         self.harvest_season: str = harvest_season
         self.nutritional_value: str = nutritional_value
 
-    def veg_info(self) -> None:
+    def get_info(self) -> None:
         print(f"{self.name} (Vegetable): {self.height}cm,", end=" ")
         print(f"{self.age} days, {self.harvest_season} harvest")
         print(f"{self.name} is rich in {self.nutritional_value}")
@@ -55,13 +58,13 @@ def print_obj(flower_obj: list[Flower],
               veg_obg: list[Vegetable]) -> None:
     print("")
     for i in flower_obj:
-        i.bloom()
+        i.get_info()
     print("")
     for j in tree_obj:
-        j.produce_shade()
+        j.get_info()
     print("")
     for z in veg_obg:
-        z.veg_info()
+        z.get_info()
 
 
 def plant_types() -> None:
