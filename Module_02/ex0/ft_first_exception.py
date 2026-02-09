@@ -37,3 +37,6 @@ def test_temperature_input() -> None:
             print(f"Error: {test} is too cold for plants (min 0°C)")
         print("")
     print("All tests completed - program didn't crash!")
+
+
+test_temperature_input()

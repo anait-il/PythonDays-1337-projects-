@@ -24,5 +24,3 @@ else:
         print(f"Score range: {max(av) - min(av)}")
     except ValueError:
         print("Error: please enter a valid score")
-    except Exception as obj:
-        print(obj)
