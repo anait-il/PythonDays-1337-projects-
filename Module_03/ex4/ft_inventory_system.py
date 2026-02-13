@@ -5,8 +5,7 @@ import sys
 def current_inventory(dic: dict, total_item: int) -> dict:
     i: int = 0
     sort_dic: dict = dict()
-    tmp_dic: dict = dic
-    new_dic = dict()
+    tmp_dic: dict = {k: v for k, v in dic.items()}
     
     while i < len(tmp_dic):
         key: str = ""
