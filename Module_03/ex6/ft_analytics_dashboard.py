@@ -1,31 +1,31 @@
 players: dict = {
-    "alice": {'score' : 2300,
-              'status' : 'active',
-              'achievements' : ('killed monster',
+    "alice": {'score': 2300,
+              'status': 'active',
+              'achievements': ('killed monster',
                                'found treasure',
                                'leveled up',
                                'treasure_seeker',
                                'boss_hunter',
                                'killed monster'),
-              'region' : "north" 
+              'region': "north"
              },
-    "bob":   {'score' : 1850,
-              'status' : 'active',
-              'achievements' : ('killed monster',
+    "bob":   {'score': 1850,
+              'status': 'active',
+              'achievements': ('killed monster',
                                 'combo_king',
                                 'explorer'),
-              'region' : "east" 
+              'region': "east" 
              },
-    "charlie":   {'score' : 2100,
-              'status' : 'active',
-              'achievements' : ('leveled up',
+    "charlie":   {'score': 2100,
+              'status': 'active',
+              'achievements': ('leveled up',
                                 'treasure_seeker'),
-              'region' : "central" 
+              'region': "central" 
              },
-    "diana":   {'score' : 500,
-              'status' : 'inactive',
-              'achievements' : ('found treasure',),
-              'region' : "west" 
+    "diana":   {'score': 500,
+              'status': 'inactive',
+              'achievements': ('found treasure',),
+              'region': "west" 
              }
 }
 
@@ -61,7 +61,11 @@ def set_comp() -> None:
     unique_players: set = {player for player in players}
     print(f"Unique players: {unique_players}")
 
-    score_achiev: set = {players[player]['achievements'] for player in players}
+    achievements: list = []
+    for player in players:
+        for item in players[player]['achievements']:
+            achievements += [item]
+    score_achiev: set = {item for item in achievements}
     print(f"Unique achievements: {score_achiev}")
 
     active_regions: set = {players[player]['region'] for player in players if players[player]['status'] == 'active'}
@@ -72,16 +76,20 @@ def analytics() -> None:
     total_players: int = len(players)
     print(f"Total players: {total_players}")
 
-    achievements: set = {players[player]['achievements'] for player in players}
-    total_unique_achievments: int = len({achievements})
-    print(f"Total unique achievements: {total_unique_achievments}")
+    achievements: list = []
+    for player in players:
+        for item in players[player]['achievements']:
+            achievements += [item]
+    total_unique_achievments: set = {item for item in achievements}
+    print(f"Total unique achievements: {len(total_unique_achievments)}")
 
     scores: list = [players[player]['score'] for player in players]
-    average_score: int = len(scores) / total_players
+    average_score: float = sum(scores) / total_players
     print(f"Average scores: {average_score}")
 
     top_perform: int = max(scores)
-    print(f"Top performer: {[player for player in players if players[player]['score'] == top_perform]}")
+    player: list = [player for player in players if players[player]['score'] == top_perform]
+    print(f"Top performer: {player} ({players[player[0]]['score']} pointes, {len(players[player[0]]['achievements'])} achievements)")
 
 
 def main() -> None:
@@ -98,4 +106,7 @@ def main() -> None:
     analytics()
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except Exception as e:
+        print(e)
