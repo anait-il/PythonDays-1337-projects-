@@ -9,12 +9,11 @@ def current_inventory(dic: dict, total_item: int) -> dict:
 
     while i < len(new_dic):
         key: str = ""
-        value: int = 0
+        value: int = None
         for k, v in new_dic.items():
-            if v > value:
+            if (value is None or v > value) and k not in sort_dic.keys():
                 value = v
                 key = k
-        new_dic[key] = 0
         sort_dic[key] = value
         i += 1
     for k, v in sort_dic.items():
@@ -73,7 +72,7 @@ if __name__ == "__main__":
             print("\n=== Management Suggestions ===")
             restock_needed: list = []
             for key, value in sort_dict.items():
-                if value == 1:
+                if value <= 1:
                     restock_needed += [key]
             print(f"Restock needed: {restock_needed}")
 
