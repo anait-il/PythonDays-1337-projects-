@@ -35,8 +35,8 @@ def common_and_rare_achievements(players: list[Players]) -> None:
 if __name__ == "__main__":
     try:
         print("=== Achievement Tracker System ===\n")
-        player: list = ["Alice", "Bob", "charlie"]
-        achievements: list[set] = [{'first_kill', 'level_10',
+        player: list[str] = ["Alice", "Bob", "charlie"]
+        achievements: list[set[str]] = [{'first_kill', 'level_10',
                                     'treasure_hunter',
                                     'speed_demon'},
                                    {'first_kill',

@@ -86,7 +86,7 @@ def print_head(num_events: int) -> None:
 def main() -> None:
     print("=== Game Data Stream Processor ===\n")
 
-    num_events: int = 10
+    num_events: int = 1000
     proc_time: float = 0
     print_head(num_events)
     gen = generature(num_events)
@@ -100,7 +100,7 @@ def main() -> None:
 
     print("\n=== Generator Demonstration ===")
     try:
-        fib_number: int = 10
+        fib_number: int = 0
         fibo = fibonacci(fib_number)
         flag: bool = True
         for num in fibo:
@@ -114,7 +114,7 @@ def main() -> None:
          f"Error: '{fib_number}' is not valid [please enter a valid one]")
 
     try:
-        prime_num: int = 5
+        prime_num: int = 1
         prime = prime_numbers(prime_num)
         flag: bool = True
         for num in prime:

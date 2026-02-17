@@ -36,7 +36,7 @@ class GardenManager:
                 self.plants += [plant]
                 print(f"Added {plant.name} successfully")
         except PlantNameError as e:
-            print(f"Error: {e}")
+            print(f"Error adding plant: {e}")
 
     def watering_plants(self) -> None:
         print("Opening watering system")
@@ -51,7 +51,7 @@ class GardenManager:
         finally:
             print("Closing watering system (cleanup)\n")
 
-    def plant_health(self, plants: list[Plant]) -> None:
+    def check_plant_health(self, plants: list[Plant]) -> None:
         try:
             for plant in plants:
                 if plant.water > 10:
@@ -90,7 +90,7 @@ def test_garden_management() -> None:
     garden.watering_plants()
 
     print("Checking plant health...")
-    garden.plant_health(garden.plants)
+    garden.check_plant_health(garden.plants)
 
     print("\nTesting error recovery...")
     try:
@@ -102,3 +102,7 @@ def test_garden_management() -> None:
         print("System recovered and continuing...")
 
     print("\nGarden management system test complete!")
+
+
+if __name__ == "__main__":
+    test_garden_management()

@@ -1,5 +1,5 @@
 players: dict = {
-    "alice": {'score': 2300,
+    "alice": {'score': 1800,
               'status': 'active',
               'achievements': ('killed monster',
                                'found treasure',

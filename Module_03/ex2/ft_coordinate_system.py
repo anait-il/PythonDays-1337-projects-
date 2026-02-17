@@ -71,7 +71,6 @@ def unpacking(coor: tuple) -> None:
     print("Unpacking demonstration:")
     try:
         x, y, z = coor
-        X, Y, Z = coor
         print(f"Player at x={x}, y={y}, z={z}")
         print(f"Coordinates: X={x}, Y={y}, Z={z}")
     except Exception as e:
