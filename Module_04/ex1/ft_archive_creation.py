@@ -10,7 +10,7 @@ def main() -> None:
             f.write("[ENTRY 001] New quantum algorithm discovered\n")
             f.write("[ENTRY 002] Efficiency increased by 347%\n")
             f.write("[ENTRY 003] Archived by Data Archivist trainee\n")
-            
+
         with open(file, 'r') as f:
             print(f.read())
         print("Data inscription complete. Storage unit sealed.")
@@ -18,7 +18,7 @@ def main() -> None:
     except PermissionError as e:
         print(f"Error: {e}")
     except Exception:
-        print("ERROR: Storage vault not found.")      
+        print("ERROR: Storage vault not found.")
 
 
 if __name__ == "__main__":
