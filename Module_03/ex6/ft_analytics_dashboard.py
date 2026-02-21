@@ -1,12 +1,11 @@
 players: dict = {
-    "alice": {'score': 1800,
+    "alice": {'score': 2300,
               'status': 'active',
               'achievements': ('killed monster',
                                'found treasure',
                                'leveled up',
                                'treasure_seeker',
-                               'boss_hunter',
-                               'killed monster'),
+                               'boss_hunter'),
               'region': "north"
               },
     "bob":   {'score': 1850,

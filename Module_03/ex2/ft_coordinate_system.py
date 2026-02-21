@@ -1,49 +1,31 @@
-
 import math
 
 
 def distance(coordinate: tuple, second_pointe: tuple) -> float:
-
-    try:
-
-        x, y, z = coordinate
-        distance: float = math.sqrt((x - second_pointe[0])**2 +
-                                    (y - second_pointe[1])**2 +
-                                    (z - second_pointe[2])**2)
-        return (distance)
-
-    except Exception as e:
-
-        raise e
+    x, y, z = coordinate
+    distance: float = math.sqrt((x - second_pointe[0])**2 +
+                                (y - second_pointe[1])**2 +
+                                (z - second_pointe[2])**2)
+    return (distance)
 
 
 def parsing(coor: str) -> tuple:
-
-    try:
-
-        parsed_position: list = coor.split(",")
-        return tuple(int(item) for item in parsed_position)
-
-    except Exception as e:
-
-        raise e
+    parsed_position: list = coor.split(",")
+    return tuple(int(item) for item in parsed_position)
 
 
 def coordinate_system(coordinate_l: tuple, second_pointe: tuple) -> None:
-
     try:
-
         if coordinate_l.__class__ == tuple:
             print(f"Position created: {coordinate_l}")
+            dest: float = distance(coordinate_l, second_pointe)
             print(f"Distance between {second_pointe} and", end=" ")
             print(
-                f" {coordinate_l}: {distance(coordinate_l, second_pointe):.2f}"
+                f" {coordinate_l}: {dest:.2f}"
                 )
         else:
             raise ValueError(f"Coordinate {coordinate_l} not valid")
-
     except Exception as obj:
-
         print(f"Error: {obj}")
 
 
@@ -69,21 +51,15 @@ def string_coordinat(coordinate_s: str, second_pointe: tuple) -> None:
 
 def unpacking(coor: tuple) -> None:
     print("Unpacking demonstration:")
-    try:
-        x, y, z = coor
-        print(f"Player at x={x}, y={y}, z={z}")
-        print(f"Coordinates: X={x}, Y={y}, Z={z}")
-    except Exception as e:
-        print(f"Error: {e}")
+    x, y, z = coor
+    print(f"Player at x={x}, y={y}, z={z}")
+    print(f"Coordinates: X={x}, Y={y}, Z={z}")
 
 
-if __name__ == "__main__":
-
+def main() -> None:
     print("=== Game Coordinate System ===")
     data: list = [(10, 20, 5), "3,4,0", "abc,def,ghi"]
-
     try:
-
         second_pointe: tuple = (0, 0, 0)
         for tupl in data:
             print("")
@@ -93,7 +69,9 @@ if __name__ == "__main__":
                 coordinate_system(tupl, second_pointe)
         print("")
         unpacking((3, 4, 0))
-
     except Exception as e:
-
         print(e)
+
+
+if __name__ == "__main__":
+    main()

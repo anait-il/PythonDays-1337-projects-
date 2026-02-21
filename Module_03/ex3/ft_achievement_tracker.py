@@ -9,7 +9,7 @@ class Players:
 
 
 def unique_achievements(player: list) -> None:
-    unique = set()
+    unique: set = set()
     for obj in player:
         unique = unique.union(obj.achievements)
     print(f"All unique achievements: {unique}")
@@ -37,18 +37,18 @@ if __name__ == "__main__":
         print("=== Achievement Tracker System ===\n")
         player: list[str] = ["Alice", "Bob", "charlie"]
         achievements: list[set[str]] = [{'first_kill', 'level_10',
-                                    'treasure_hunter',
-                                    'speed_demon'},
-                                   {'first_kill',
-                                    'level_10',
-                                    'boss_slayer',
-                                    'collector'},
-                                   {'level_10',
-                                    'treasure_hunter',
-                                    'boss_slayer',
-                                    'speed_demon',
-                                    'perfectionist'}]
-        objs: list = []
+                                         'treasure_hunter',
+                                         'speed_demon'},
+                                        {'first_kill',
+                                         'level_10',
+                                         'boss_slayer',
+                                         'collector'},
+                                        {'level_10',
+                                         'treasure_hunter',
+                                         'boss_slayer',
+                                         'speed_demon',
+                                         'perfectionist'}]
+        objs: list[Players] = []
         i: int = 0
         while i < len(player):
             obj: Players = Players(player[i], achievements[i])

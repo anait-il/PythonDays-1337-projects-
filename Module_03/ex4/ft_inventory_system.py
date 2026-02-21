@@ -9,7 +9,7 @@ def current_inventory(dic: dict, total_item: int) -> dict:
 
     while i < len(new_dic):
         key: str = ""
-        value: int = None
+        value: int | None = None
         for k, v in new_dic.items():
             if (value is None or v > value) and k not in sort_dic.keys():
                 value = v
@@ -47,42 +47,60 @@ if __name__ == "__main__":
             print(f"Total items in inventory: {total_item}")
             print(f"Unique item types: {item}")
 
-            print("\n=== Current Inventory ===")
-            sort_dict: dict = current_inventory(dic, total_item)
+            if dic:
+                print("\n=== Current Inventory ===")
+                sort_dict: dict = current_inventory(dic, total_item)
 
-            print("\n=== Inventory Statistics ===")
-            for key, value in sort_dict.items():
-                f_dic: dict = dict({key: value})
-                break
-            print(f"Most aabundant: {f_dic}")
-            for key, value in sort_dict.items():
-                lst_dic: dict = dict({key: value})
-            print(f"Least aabundant: {lst_dic}")
+                print("\n=== Inventory Statistics ===")
+                for key, value in sort_dict.items():
+                    f_dic: dict = dict({key: value})
+                    break
+                print(f"Most abundant: {f_dic}")
+                for key, value in sort_dict.items():
+                    lst_dic: dict = dict({key: value})
+                print(f"Least abundant: {lst_dic}")
 
-            print("\n=== Item Categories ===")
-            abundance_dictionary: dict = {"moderate": {}, "scarce": {}}
-            for k, v in sort_dict.items():
-                if v > 3:
-                    abundance_dictionary["moderate"].update({k: v})
-                elif v <= 3:
-                    abundance_dictionary["scarce"].update({k: v})
-            print(f"Moderate: {abundance_dictionary['moderate']}")
-            print(f"Scarce: {abundance_dictionary['scarce']}")
+                print("\n=== Item Categories ===")
+                abundance_dictionary: dict = {"moderate": {}, "scarce": {}}
+                for k, v in sort_dict.items():
+                    if v > 3:
+                        abundance_dictionary["moderate"].update({k: v})
+                    elif v <= 3:
+                        abundance_dictionary["scarce"].update({k: v})
+                print(f"Moderate: {abundance_dictionary['moderate']}")
+                print(f"Scarce: {abundance_dictionary['scarce']}")
 
-            print("\n=== Management Suggestions ===")
-            restock_needed: list = []
-            for key, value in sort_dict.items():
-                if value <= 1:
-                    restock_needed += [key]
-            print(f"Restock needed: {restock_needed}")
+                print("\n=== Management Suggestions ===")
+                restock_needed: list = []
+                for key, value in sort_dict.items():
+                    if value <= 1:
+                        restock_needed += [key]
+                restock: str = ""
+                i = 0
+                for key in restock_needed:
+                    restock += (
+                        f"{key}{', ' if i < (len(restock_needed) - 1) else ''}"
+                        )
+                    i += 1
+                print(f"Restock needed: {restock}")
 
-            print("\n=== Dictionary Properties Demo ===")
-            dic_keys: list = [key for key in dic.keys()]
-            dic_val: list = [value for value in dic.values()]
-            print(f"Dictionary keys: {dic_keys}")
-            print(f"Dictionary values: {dic_val}")
-            inventory_search: str = "sword"
-            print(f"Sample lookup - '{inventory_search}'", end=" ")
-            print(f"in inventory: {dic.get(inventory_search) == True}")
+                print("\n=== Dictionary Properties Demo ===")
+                dic_keys: str = ""
+                dic_val: str = ""
+                i = 0
+                for key, value in dic.items():
+                    dic_keys += f"{key}{", "
+                                        if i < (len(dic.keys()) - 1)
+                                        else ''}"
+                    dic_val += f"{value}{", "
+                                         if i < (len(dic.values()) - 1)
+                                         else ''}"
+                    i += 1
+                print(f"Dictionary keys: {dic_keys}")
+                print(f"Dictionary values: {dic_val}")
+                inventory_search: str = "sword"
+                print(f"Sample lookup - '{inventory_search}'", end=" ")
+                print(f"in inventory: {inventory_search in dic}")
+
     except Exception as e:
         print(e)

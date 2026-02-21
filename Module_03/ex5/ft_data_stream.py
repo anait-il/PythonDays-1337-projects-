@@ -2,7 +2,7 @@
 from typing import Generator
 
 
-def generature(num: int) -> Generator[str, None, list]:
+def generature(num: int) -> Generator[str, None, list[int]]:
     players: list = ['alice', 'bob', 'charlie', 'diana', 'eve', 'frank']
     achievements: list = [
         'killed monster', 'found treasure', 'leveled up', 'treasure_seeker',
@@ -45,16 +45,20 @@ def stream_analytics(gen) -> None:
 def fibonacci(nb) -> Generator[int, None, None]:
     if nb.__class__ == int:
         print(f"Fibonacci sequence (first {nb}):", end=" ")
-        i: int = 0
-        yield i
-        j: int = 1
-        yield j
-        while nb > 2:
-            res: int = i + j
-            yield res
-            i = j
-            j = res
-            nb -= 1
+        if nb > 0:
+            if nb == 1:
+                yield 0
+                return
+            i: int = 0
+            yield i
+            j: int = 1
+            yield j
+            while nb > 2:
+                res: int = i + j
+                yield res
+                i = j
+                j = res
+                nb -= 1
     else:
         raise ValueError
 
@@ -62,18 +66,19 @@ def fibonacci(nb) -> Generator[int, None, None]:
 def prime_numbers(nb) -> Generator[int, None, None]:
     if nb.__class__ == int:
         print(f"\nPrime numbers (first {nb}):", end=" ")
-        nbr: int = 3
-        yield 2
-        while nb > 1:
-            i: int = 2
-            while i < nbr:
-                if nbr % i == 0:
-                    nbr += 1
-                else:
-                    i += 1
-            yield nbr
-            nbr += 1
-            nb -= 1
+        if nb > 0:
+            nbr: int = 3
+            yield 2
+            while nb > 1:
+                i: int = 2
+                while i < nbr:
+                    if nbr % i == 0:
+                        nbr += 1
+                    else:
+                        i += 1
+                yield nbr
+                nbr += 1
+                nb -= 1
     else:
         raise ValueError()
 
@@ -100,7 +105,7 @@ def main() -> None:
 
     print("\n=== Generator Demonstration ===")
     try:
-        fib_number: int = 0
+        fib_number: int = 10
         fibo = fibonacci(fib_number)
         flag: bool = True
         for num in fibo:
@@ -114,9 +119,9 @@ def main() -> None:
          f"Error: '{fib_number}' is not valid [please enter a valid one]")
 
     try:
-        prime_num: int = 1
+        prime_num: int = 5
         prime = prime_numbers(prime_num)
-        flag: bool = True
+        flag = True
         for num in prime:
             if flag:
                 flag = False
