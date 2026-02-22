@@ -14,9 +14,15 @@ def parsing(coor: str) -> tuple:
     return tuple(int(item) for item in parsed_position)
 
 
+def check_tuple(cor: tuple) -> None:
+    for i in cor:
+        int(i)
+
+
 def coordinate_system(coordinate_l: tuple, second_pointe: tuple) -> None:
     try:
         if coordinate_l.__class__ == tuple:
+            check_tuple(coordinate_l)
             print(f"Position created: {coordinate_l}")
             dest: float = distance(coordinate_l, second_pointe)
             print(f"Distance between {second_pointe} and", end=" ")
@@ -26,7 +32,10 @@ def coordinate_system(coordinate_l: tuple, second_pointe: tuple) -> None:
         else:
             raise ValueError(f"Coordinate {coordinate_l} not valid")
     except Exception as obj:
-        print(f"Error: {obj}")
+        print(f"Parsing invalid coordinates: \"{coordinate_l}\"")
+        print(f"Error parsing coordinates: {obj}")
+        print(f"Error details - type: {obj.__class__.__name__}", end=" ")
+        print(f"Args: {obj.args}")
 
 
 def string_coordinat(coordinate_s: str, second_pointe: tuple) -> None:
