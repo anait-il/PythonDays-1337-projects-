@@ -18,7 +18,7 @@ else:
         print(f"Scores processed: {av}")
         print(f"Total players: {totl_p}")
         print(f"Total score: {total_s}")
-        print(f"Average score: {total_s / totl_p}")
+        print(f"Average score: {total_s / totl_p:.1f}")
         print(f"Hight score: {max(av)}")
         print(f"Low score: {min(av)}")
         print(f"Score range: {max(av) - min(av)}")

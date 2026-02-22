@@ -23,21 +23,31 @@ def current_inventory(dic: dict, total_item: int) -> dict:
 
 if __name__ == "__main__":
     try:
-        print("=== Inventory System Analysis ===")
         if len(sys.argv) > 1:
-            try:
-                dic: dict = dict()
-                i: int = 1
-                while i < len(sys.argv):
+            print("=== Inventory System Analysis ===")
+            flag: bool = True
+            dic: dict = dict()
+            i: int = 1
+            while i < len(sys.argv):
+                try:
                     parts: list = sys.argv[i].split(":")
                     if len(parts) != 2 or not parts[1]:
                         i += 1
                         print(f"Error: key '{parts[0]}' without value")
+                        flag = False
+                        continue
+                    if int(parts[1]) < 0:
+                        i += 1
+                        print(f"Error: key '{parts[0]}' with negative value")
+                        flag = False
                         continue
                     dic[parts[0]] = int(parts[1])
                     i += 1
-            except Exception as e:
-                print(f"Error: {e}\n")
+                except Exception as e:
+                    print(f"Error: {e}\n")
+                    i += 1
+            if not flag:
+                print()
 
             total_item: int = 0
             item: int = 0
@@ -55,20 +65,28 @@ if __name__ == "__main__":
                 for key, value in sort_dict.items():
                     f_dic: dict = dict({key: value})
                     break
-                print(f"Most abundant: {f_dic}")
+                (k, v), = f_dic.items()
+                print(f"Most abundant: {k} ({v} unit{'s' if v > 1 else ''})")
                 for key, value in sort_dict.items():
                     lst_dic: dict = dict({key: value})
-                print(f"Least abundant: {lst_dic}")
+                (k, v), = lst_dic.items()
+                print(f"Least abundant: {k} ({v} unit{'s' if v > 1 else ''})")
 
                 print("\n=== Item Categories ===")
-                abundance_dictionary: dict = {"moderate": {}, "scarce": {}}
+                abundance_dictionary: dict = {"abundant": {},
+                                              "moderate": {},
+                                              "scarce": {}}
                 for k, v in sort_dict.items():
-                    if v > 3:
+                    if v > 5:
+                        abundance_dictionary["abundant"].update({k: v})
+                    elif 3 < v <= 5:
                         abundance_dictionary["moderate"].update({k: v})
                     elif v <= 3:
                         abundance_dictionary["scarce"].update({k: v})
-                print(f"Moderate: {abundance_dictionary['moderate']}")
-                print(f"Scarce: {abundance_dictionary['scarce']}")
+                if len(abundance_dictionary["abundant"]) > 0:
+                    print(f"Abundant: {abundance_dictionary.get('abundant')}")
+                print(f"Moderate: {abundance_dictionary.get('moderate')}")
+                print(f"Scarce: {abundance_dictionary.get('scarce')}")
 
                 print("\n=== Management Suggestions ===")
                 restock_needed: list = []
@@ -89,12 +107,12 @@ if __name__ == "__main__":
                 dic_val: str = ""
                 i = 0
                 for key, value in dic.items():
-                    dic_keys += f"{key}{", "
-                                        if i < (len(dic.keys()) - 1)
-                                        else ''}"
-                    dic_val += f"{value}{", "
-                                         if i < (len(dic.values()) - 1)
-                                         else ''}"
+                    dic_keys += (
+                        f"{key}{', ' if i < (len(dic.keys()) - 1) else ''}"
+                        )
+                    dic_val += (
+                        f"{value}{', ' if i < (len(dic.values()) - 1) else ''}"
+                        )
                     i += 1
                 print(f"Dictionary keys: {dic_keys}")
                 print(f"Dictionary values: {dic_val}")
@@ -103,4 +121,4 @@ if __name__ == "__main__":
                 print(f"in inventory: {inventory_search in dic}")
 
     except Exception as e:
-        print(e)
+        print(f"Error: {e}")

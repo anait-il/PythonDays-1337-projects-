@@ -21,14 +21,16 @@ def common_and_rare_achievements(players: list[Players]) -> None:
     for obj in players:
         common_all = common_all.intersection(obj.achievements)
     print(f"Common to all players: {common_all}")
+    resault: set = set()
+    for obj in players:
+        player_unique: set = obj.achievements
+        other_players: list = [player
+                               for player in players
+                               if player is not obj]
+        for player in other_players:
+            player_unique = player_unique.difference(player.achievements)
+        resault = resault | player_unique
 
-    p1 = players[0].achievements.difference(players[1].achievements,
-                                            players[2].achievements)
-    p2 = players[1].achievements.difference(players[0].achievements,
-                                            players[2].achievements)
-    p3 = players[2].achievements.difference(players[0].achievements,
-                                            players[1].achievements)
-    resault: set = p1 | p2 | p3
     print(f"Rare achievements (1 player): {resault}")
 
 

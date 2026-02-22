@@ -46,7 +46,7 @@ def string_coordinat(coordinate_s: str, second_pointe: tuple) -> None:
         print(f"Parsing invalid coordinates: \"{coordinate_s}\"")
         print(f"Error parsing coordinates: {obj}")
         print(f"Error details - type: {obj.__class__.__name__}", end=" ")
-        print(f"Args: (\"{obj}\",)")
+        print(f"Args: {obj.args}")
 
 
 def unpacking(coor: tuple) -> None:

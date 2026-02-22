@@ -25,7 +25,7 @@ def generature(num: int) -> Generator[str, None, list[int]]:
             level_events += 1
         if ach == "found treasure":
             treasure_events += 1
-    return iter([high_scores, treasure_events, level_events])
+    return [high_scores, treasure_events, level_events]
 
 
 def stream_analytics(gen) -> None:
@@ -36,10 +36,11 @@ def stream_analytics(gen) -> None:
             next(gen)
             total_events += 1
     except StopIteration as e:
+        value = iter(e.value)
         print(f"Total events processed: {total_events}")
-        print(f"High-level players (10+): {next(e.value)}")
-        print(f"Treasure events: {next(e.value)}")
-        print(f"Level-up events: {next(e.value)}")
+        print(f"High-level players (10+): {next(value)}")
+        print(f"Treasure events: {next(value)}")
+        print(f"Level-up events: {next(value)}")
 
 
 def fibonacci(nb) -> Generator[int, None, None]:
@@ -131,7 +132,7 @@ def main() -> None:
         print()
     except Exception:
         print(
-         f"Error: '{prime_num}' is not valid [please enter a valid number]")
+         f"\nError: '{prime_num}' is not valid [please enter a valid number]")
 
 
 if __name__ == "__main__":
