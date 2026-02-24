@@ -1,21 +1,21 @@
 
 def crisis_handler(file: str) -> None:
     try:
-        if file == "standard_archive.txt":
-            print(f"ROUTINE ACCESS: Attempting access to '{file}'...")
-        else:
-            print(f"CRISIS ALERT: Attempting access to '{file}'...")
+
         with open(file) as f:
             data: str = f.read()
 
+        print(f"ROUTINE ACCESS: Attempting access to '{file}'...")
         print(f"SUCCESS: Archive recovered - ``{data}''")
         print("STATUS: Normal operations resumed")
 
     except FileNotFoundError:
+        print(f"CRISIS ALERT: Attempting access to '{file}'...")
         print("RESPONSE: Archive not found in storage matrix")
         print("STATUS: Crisis handled, system stable")
 
     except PermissionError:
+        print(f"CRISIS ALERT: Attempting access to '{file}'...")
         print("RESPONSE: Security protocols deny access")
         print("STATUS: Crisis handled, security maintained")
 

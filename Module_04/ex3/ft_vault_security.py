@@ -23,5 +23,5 @@ if __name__ == "__main__":
         main()
     except PermissionError as e:
         print(e)
-    except Exception:
+    except FileExistsError:
         print("Error: vault not found")
