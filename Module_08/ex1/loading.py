@@ -7,6 +7,7 @@ def main() -> None:
         import pandas
         import numpy
         import matplotlib.pyplot as plt
+        import requests
 
         pd = 'pandas'
         nu = 'numpy'
@@ -17,20 +18,31 @@ def main() -> None:
         print()
 
         print('Analyzing Matrix data...')
-        n = 1000
+
+        url = " \
+https://api.worldbank.org/v2/country/MA/indicator/NY.GDP.MKTP.CD?format=json"
+        result = requests.get(url)
+        data = result.json()
+        record = data[1][1:10]
+        years = numpy.array([item['date'] for item in record])
+        values = numpy.array([item['value'] for item in record])
+
+        n = len(years)
         print(f"Processing {n} data points...")
-        x = numpy.random.choice(range(n), size=10)
-        y = numpy.random.choice(range(n), size=10)
+        year_idx = numpy.argsort(years)
+        value_idx = numpy.argsort(values)
+        years = years[year_idx]
+        values = values[value_idx]
         data = pandas.DataFrame({
-            'x': x,
-            'y': y
+            'year': years,
+            'value': values
         })
 
         print("Generating Visualization...")
-        plt.plot(data['x'], data['y'])
+        plt.plot(data['year'], data['value'], marker="o")
         plt.title("Analyzing Matrix Data")
-        plt.xlabel('X axis')
-        plt.ylabel('Y axis')
+        plt.xlabel('year')
+        plt.ylabel('GDP (Billion USD)')
         plt.grid(True)
         plt.savefig(('matrix_analysis.png'))
         print()
@@ -41,8 +53,10 @@ def main() -> None:
         print("Should first install dependencies:")
         print("""
 pip install -r requirements.txt # using pip
-poetry install # using poetry
+poetry install --no-root # using poetry
 """)
+    except Exception as e:
+        print(f"Error: {e}")
 
 
 if __name__ == "__main__":
