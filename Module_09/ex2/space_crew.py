@@ -13,24 +13,60 @@ class Rank(Enum):
 
 
 class CrewMember(BaseModel):
-    member_id: str = Field(..., min_length=3, max_length=10, description="Unique member ID, 3-10 characters")
-    name: str = Field(..., min_length=2, max_length=50, description="Full name, 2-50 characters")
-    rank: Rank = Field(..., description="Crew member rank")
-    age: int = Field(..., ge=18, le=80, description="Age in years, 18-80")
-    specialization: str = Field(..., min_length=3, max_length=30, description="Area of specialization, 3-30 characters")
-    years_experience: int = Field(..., ge=0, le=50, description="Years of experience, 0-50")
-    is_active: bool = Field(default=True, description="Whether crew member is active, defaults to True")
+    member_id: str = Field(...,
+                           min_length=3,
+                           max_length=10,
+                           description="Unique member ID, 3-10 characters")
+    name: str = Field(...,
+                      min_length=2,
+                      max_length=50,
+                      description="Full name, 2-50 characters")
+    rank: Rank = Field(...,
+                       description="Crew member rank")
+    age: int = Field(...,
+                     ge=18,
+                     le=80, description="Age in years, 18-80")
+    specialization: str = Field(...,
+                                min_length=3,
+                                max_length=30,
+                                description="Area of specialization")
+    years_experience: int = Field(...,
+                                  ge=0,
+                                  le=50,
+                                  description="Years of experience")
+    is_active: bool = Field(default=True,
+                            description="Whether crew member is active")
 
 
 class SpaceMission(BaseModel):
-    mission_id: str = Field(..., min_length=5, max_length=15, description="Unique mission ID, 5-15 characters")
-    mission_name: str = Field(..., min_length=3, max_length=100, description="Mission name, 3-100 characters")
-    destination: str = Field(..., min_length=3, max_length=50, description="Mission destination, 3-50 characters")
-    launch_date: datetime = Field(..., description="Scheduled launch datetime")
-    duration_days: int = Field(..., ge=1, le=3650, description="Duration in days, max 10 years (3650)")
-    crew: List[CrewMember] = Field(..., min_length=1, max_length=12, description="List of crew members, 1-12")
-    mission_status: str = Field(default="planned", description="Mission status, defaults to planned")
-    budget_millions: float = Field(..., ge=1.0, le=10000.0, description="Budget in millions, 1.0-10000.0")
+    mission_id: str = Field(...,
+                            min_length=5,
+                            max_length=15,
+                            description="Unique mission ID, 5-15 characters")
+    mission_name: str = Field(...,
+                              min_length=3,
+                              max_length=100,
+                              description="Mission name, 3-100 characters")
+    destination: str = Field(...,
+                             min_length=3,
+                             max_length=50,
+                             description="Mission destination")
+    launch_date: datetime = Field(...,
+                                  description="launch datetime")
+    duration_days: int = Field(...,
+                               ge=1,
+                               le=3650,
+                               description="Duration in days")
+    crew: List[CrewMember] = Field(...,
+                                   min_length=1,
+                                   max_length=12,
+                                   description="List of crew members")
+    mission_status: str = Field(default="planned",
+                                description="Mission status")
+    budget_millions: float = Field(...,
+                                   ge=1.0,
+                                   le=10000.0,
+                                   description="Budget in millions")
 
     @model_validator(mode="after")
     def validate_mission(self):
@@ -43,15 +79,18 @@ class SpaceMission(BaseModel):
             for member in self.crew
         )
         if not has_leader:
-            raise ValueError("Mission must have at least one Commander or Captain")
+            raise ValueError(
+                "Mission must have at least one Commander or Captain")
 
         if self.duration_days > 365:
             experienced = sum(
                 1 for member in self.crew
                 if member.years_experience >= 5
             )
-            if experienced < len(self.crew) / 2: 
-                raise ValueError("Long missions need" "at least 50% experienced crew (5+ years)")
+            if experienced < len(self.crew) / 2:
+                raise ValueError(
+                    "Long missions need at least 50% experienced crew "
+                    "(5+ years)")
 
         inactive = [member.name
                     for member in self.crew

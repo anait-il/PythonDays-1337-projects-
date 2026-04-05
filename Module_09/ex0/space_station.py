@@ -51,6 +51,12 @@ def main() -> None:
         )
         print_station(valid_station)
 
+    except ValidationError as e:
+        print("Expected validation error:")
+        for error in e.errors():
+            print(error['msg'])
+
+    try:
         print()
         print("=" * 30)
 
@@ -71,4 +77,7 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except Exception as e:
+        print(e)
